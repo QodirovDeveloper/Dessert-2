@@ -30,7 +30,7 @@ function Cart({ dessert }) {
             className="flex gap-1 cursor-pointer items-center justify-center absolute -bottom-[21px]  rounded-full
              bg-white py-3 border border-[#AD8A85] left-24 right-24 min-[439px]:left-9 min-[439px]:right-9 sm:left-9 sm:right-9 xl:left-18 xl:right-18 text-sm font-semibold"
           >
-            <img src="../../public/images/icon-add-to-cart.svg" alt="" />
+            <img src="./images/icon-add-to-cart.svg" alt="" />
             Add to Cart
           </button>
         )}
