@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
 import Desserts from "./components/Desserts";
 import YourCart from "./components/YourCart";
 import useFetch from "./hooks/useFetch";
 
 function App() {
+  const cart = useSelector((store)=> store.desserts)
+  console.log(cart)
   const { data, error, loading } = useFetch(
     "https://json-api.uz/api/project/dessertss/desserts"
   );
