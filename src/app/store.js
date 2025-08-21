@@ -3,6 +3,6 @@ import dessertsReducer from './features/dessertsSlice'
 
 export const store = configureStore({
   reducer: {
-    dessert: dessertsReducer
+    desserts: dessertsReducer
   }
 })
