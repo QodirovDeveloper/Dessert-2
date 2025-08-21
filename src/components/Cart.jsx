@@ -1,7 +1,18 @@
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
+import {
+  addDessert,
+  decrementAmount,
+  incrementDessert,
+  removeDessert,
+} from "../app/features/dessertsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Cart({ dessert }) {
-  let isAdded = true;
+  const dispatch = useDispatch();
+  const { desserts } = useSelector((store) => store.desserts);
+
+  let isAdded = desserts.find((item) => item.id == dessert.id);
+  console.log(desserts);
   return (
     <div>
       <picture className="relative ">
@@ -25,8 +36,9 @@ function Cart({ dessert }) {
           className="w-full rounded-md"
           alt="dessert"
         />
-        {isAdded && (
+        {!isAdded && (
           <button
+            onClick={() => dispatch(addDessert(dessert))}
             className="flex gap-1 cursor-pointer items-center justify-center absolute -bottom-[21px]  rounded-full
              bg-white py-3 border border-[#AD8A85] left-24 right-24 min-[439px]:left-9 min-[439px]:right-9 sm:left-9 sm:right-9 xl:left-18 xl:right-18 text-sm font-semibold"
           >
@@ -34,16 +46,28 @@ function Cart({ dessert }) {
             Add to Cart
           </button>
         )}
-        {!isAdded && (
+        {isAdded && (
           <div
             className="text-white bg-[#C73B0F] flex gap-1 items-center justify-around absolute -bottom-[21px]  rounded-full
               py-2.5 border border-[#C73B0F] left-24 right-24 min-[439px]:left-9 min-[439px]:right-9 sm:left-9 sm:right-9 xl:left-18 xl:right-18 text-sm font-semibold"
           >
-            <button className="text-2xl rounded-full cursor-pointer active:bg-white active:text-[#C73B0F]">
+            <button
+              onClick={() => {
+                if (isAdded.amount == 1) {
+                  dispatch(removeDessert(isAdded.id));
+                } else {
+                  dispatch(decrementAmount(isAdded.id));
+                }
+              }}
+              className="text-2xl rounded-full cursor-pointer active:bg-white active:text-[#C73B0F]"
+            >
               <CiCircleMinus />
             </button>
-            4
-            <button className="text-2xl rounded-full cursor-pointer active:bg-white active:text-[#C73B0F]">
+            {isAdded.amount}
+            <button
+              onClick={() => dispatch(incrementDessert(isAdded.id))}
+              className="text-2xl rounded-full cursor-pointer active:bg-white active:text-[#C73B0F]"
+            >
               <CiCirclePlus />
             </button>
           </div>
